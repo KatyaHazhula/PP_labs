@@ -55,8 +55,6 @@ public class Fibonacci {
      */
     private void BiggestNum(int[] fibonacciArr)
     {
-//        boolean bigOdd = false, bigEven = false;
-//        int maxEven = 0, maxOdd = 0;
         int countEven = 0;
 
         for (int i = fibonacciArr.length - 1; i!=-1; i--)
