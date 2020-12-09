@@ -1,7 +1,7 @@
 package com.company.Menu;
 
 import com.company.Battle.Battle;
-import com.company.Droids.Droid;
+import com.company.Droids.*;
 import com.company.Player.Player;
 
 import java.util.Scanner;
@@ -39,7 +39,7 @@ public class Menu {
                     break;
                 } case 4: {
                     // Create a Droid
-                    createDroidSection();
+                    typeOfDroid();
                     break;
                 } default: {
                     System.out.println("Неправильний номер, виберіть інший...");
@@ -174,7 +174,12 @@ public class Menu {
         System.out.println();
         System.out.println();
     }
-    private void createDroidSection() {
+    private void createDroidSection(int value) {
+        Scanner in=new Scanner(System.in);
+        String name;
+        int health;
+        int damage;
+        //inputAttributesForDroid(droid);
         System.out.println(" *-*-*-*-*-*-*-*--*--*--*-*-*-*");
         System.out.println(" *                                *");
         System.out.println(" *          Створити дроїда       *");
@@ -185,38 +190,56 @@ public class Menu {
         System.out.println(" * 1. Ім'я                        *");
         System.out.println(" * 2. Кількість здоров'я          *");
         System.out.println(" * 3. Кількість нанесеної шкоди   *");
-        System.out.println(" * 4. Зброю                       *");
         System.out.println(" *-*-*-*-*-*-*-*--*--*--*-*-*-*");
-
-        Droid droid = new Droid();
-        inputAttributesForDroid(droid);
-        player.droidStation.add(droid);
-    }
-
-    private void inputAttributesForDroid(Droid droid) {
-        Scanner in = new Scanner(System.in);
 
         System.out.print(" -------------- Введіть ім'я   -> ");
-        droid.setName(in.nextLine());
+        name=in.nextLine();
 
         System.out.print(" -- Введіть кількість здоров'я -> ");
-        droid.setHealth(in.nextInt());
+        health=Integer.parseInt(in.nextLine());
 
         System.out.print(" ----- Введіть кількість нанесеної шкоди -> ");
-        droid.setDamage(in.nextInt());
+        damage=Integer.parseInt(in.nextLine());
+
+        switch (value){
+            case 1:player.droidStation.add(new DroidKnight(name, health, damage));break;
+            case 2:player.droidStation.add(new DroidFairy(name, health, damage));break;
+            case 3:player.droidStation.add(new ArmoredDroid(name, health, damage));break;
+            case 4:player.droidStation.add(new DroidVedma(name, health, damage));break;
+            case 5:player.droidStation.add(new DangerousDroid(name, health, damage));break;
+        }
+       // Droid droid = new Droid();
+//        inputAttributesForDroid(droid);
+//        player.droidStation.add(droid);
+    }
+
+    private void typeOfDroid() {
+        Scanner in = new Scanner(System.in);
+//
+//        System.out.print(" -------------- Введіть ім'я   -> ");
+//        droid.setName(in.nextLine());
+//
+//        System.out.print(" -- Введіть кількість здоров'я -> ");
+//        droid.setHealth(in.nextInt());
+//
+//        System.out.print(" ----- Введіть кількість нанесеної шкоди -> ");
+//        droid.setDamage(in.nextInt());
 
         System.out.println(" *-*-*-*-*-*-*-*--*--*--*-*-*-*");
-        System.out.println(" * Виберіть зброю:                *");
-        System.out.println(" * 1. Меч                         *");
-        System.out.println(" * 2. Зілля                       *");
-        System.out.println(" * 3. Щит                         *");
-        System.out.println(" * 4. Прокляття                   *");
-        System.out.println(" * 5. Ножик                       *");
+        System.out.println(" * Виберіть дроїда:               *");
+        System.out.println(" * 1. Дроїд з мечем               *");
+        System.out.println(" * 2. Дроїд фєєчка                *");
+        System.out.println(" * 3. Дроїд з щитом               *");
+        System.out.println(" * 4. Дроїд вєдьма                *");
+        System.out.println(" * 5. Дроїд з ножиком             *");
         System.out.println(" *-*-*-*-*-*-*-*--*--*--*-*-*-*");
         System.out.print(" ------------- Введіть номер --> ");
-        droid.setTypeOfWeapon(in.nextInt());
+        int value=Integer.parseInt(in.nextLine());
+
+      //  droid.setTypeOfWeapon(in.nextInt());
         System.out.println();
         System.out.println();
+        createDroidSection(value);
     }
 
 }

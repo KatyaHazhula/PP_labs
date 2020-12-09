@@ -1,6 +1,6 @@
 package com.company.Battle;
 
-import com.company.Droids.Droid;
+import com.company.Droids.*;
 import com.company.PreparingForGame.PreparingForGame;
 
 import java.util.ArrayList;
@@ -16,22 +16,44 @@ public class Battle {
     private int indexOfAttacker;
     private int indexOfDefender;
     public static int enlimatedTeam;
-    private int accuracyChance;
-    PreparingForGame preparingForGame =new PreparingForGame();
-    Droid showInfo = new Droid();
 
-    public Battle(Droid ... droid) { //
+
+
+    PreparingForGame preparingForGame =new PreparingForGame();
+    //Droid showInfo = new Droid();
+
+    public Battle(Droid... droid) { //
         roundCount = 1;
 
         for (Droid droidIterator : droid) {
-            Droid fighter = new Droid(droidIterator);
+
+            Droid fighter= null;
+            String name = droidIterator.getName();
+            int health = droidIterator.getHealth();
+            int damage = droidIterator.getDamage();
+            if (droidIterator instanceof DroidKnight) {
+                fighter = new DroidKnight(name, health, damage);
+            } else if (droidIterator instanceof DroidFairy) {
+                fighter = new DroidFairy(name, health, damage);
+            } else if (droidIterator instanceof ArmoredDroid) {
+                fighter = new ArmoredDroid(name, health, damage);
+            }else if (droidIterator instanceof DroidVedma) {
+                fighter = new DroidVedma(name, health, damage);
+            }else if (droidIterator instanceof DangerousDroid) {
+                fighter = new DangerousDroid(name, health, damage);
+            }
             fightingDroids.add(fighter);
+
         }
+
+
     }
+
 
     public void start1vs1Battle() {
         while (preparingForGame.PreparingForGame(fightingDroids)) {
-            showInfo.showDroidsInfo(fightingDroids);
+           // showInfo.showDroidsInfo(fightingDroids);
+            fightingDroids.get(0).showDroidsInfo(fightingDroids);
             if(fightingDroids.get(0).getIsAbleToMove()==true){
                 makeTurn(fightingDroids.get(0), fightingDroids.get(1));
             }
@@ -55,7 +77,7 @@ public class Battle {
         if(enlimatedTeam == 2) {
             System.out.println(fightingDroids.get(0).getName() + " ЩЕ ЖИВИЙ, ТИ ВИГРАВ!");
         } else {
-            System.out.println(fightingDroids.get(1).getName() + "СИЛЬНІШИЙ, ТИ ПРОГРАВ !");
+            System.out.println(fightingDroids.get(1).getName() + " СИЛЬНІШИЙ, ТИ ПРОГРАВ !");
         }
         System.out.println();
     }
@@ -64,7 +86,8 @@ public class Battle {
         while(preparingForGame.PreparingForGame(fightingDroids)) {
 
             for (int i = 0; i < 3; i++) {
-                showInfo.showDroidsInfo(fightingDroids);
+                fightingDroids.get(0).showDroidsInfo(fightingDroids);
+
 
                 playerTurn();
                 makeTurn(fightingDroids.get(indexOfAttacker), fightingDroids.get(indexOfDefender));//,битва учасника 1 команди з учасником 2 ком.
@@ -99,20 +122,24 @@ public class Battle {
     }
 
     private void makeTurn(Droid attacker, Droid defender) {//наносимо удар
-        int attack = random.nextInt(attacker.getDamage() + 1);
+        //attack = random.nextInt(attacker.getDamage() + 1);
 
-        accuracyChance = random.nextInt(100);
+        attacker.setAttack(random.nextInt(attacker.getDamage() + 1));
+        //accuracyChance = random.nextInt(100);
+        attacker.setAccuracyChance(random.nextInt(100));
         int evasionChance = random.nextInt(40);
         //дивимось чи достатньо злості щоб, використати додаткову силу, якщо так тоді збільшуємо attack, якщо не достатньо повертаємо не змінене attack
-        attack = checkForWeapon(attacker, defender, attack);
+        //attack = checkForWeapon(attacker, defender, attack);
+        checkForWeapon(attacker, defender);
+
         //якщо рандомно вибрана точність >90 тоді наносимо шкоду +30
-        if(accuracyChance > 90) {
+        if(attacker.getAccuracyChance() > 90) {
             System.out.println(" *КЛАСНО ВМАЗАВ *");
-            attack += 30;
+            attacker.setAttack(attacker.getAttack()+30);
         }
 
-        if(isPossibleToHit(attacker, defender, accuracyChance, evasionChance)) {// якщо є можливість вдарити
-            makeHit(attacker, defender, attack);
+        if(isPossibleToHit(attacker, defender, attacker.getAccuracyChance(), evasionChance)) {// якщо є можливість вдарити
+            makeHit(attacker, defender, attacker.getAttack());
             //якщо здоров'я < 0, то він здох
             if(defender.getHealth() <= 0) {
                 defender.setIsAbleToMove(false);
@@ -122,42 +149,56 @@ public class Battle {
         }
     }
 
-    private int checkForWeapon(Droid attacker, Droid defender, int attack) {
-        if(attacker.getRage() >=100) {
-            switch(attacker.getTypeOfWeapon()) {
-                case 1: {
-                    accuracyChance +=40;
-                    break;
-                }
-                case 2: {
-                    attacker.gettingHealed(150);
-                    break;
-                }
-                case 3: {
-                    attacker.setStatus(1);
-                    break;
-                }
-                case 4: {
-                    if(fightingDroids.size()==2){
-                        defender.setIsAbleToMove(false);
-                    }else{
-                        defender.decreasingHealth(200);
-                    }
-                    break;
-                }
-                case 5: {
-                    attack +=20;
-                    break;
-                }
+    private void checkForWeapon(Droid attacker, Droid defender) {
+        if(attacker.getRage() >=100 && !(attacker instanceof ArmoredDroid)) {
 
+            if (attacker instanceof DroidKnight) {
+                attacker.usePower();
+            } else if (attacker instanceof DroidFairy) {
+                attacker.usePower();
+            }else if (attacker instanceof DroidVedma) {
+                attacker.usePower(defender, fightingDroids);
+            }else if (attacker instanceof DangerousDroid) {
+                attacker.usePower();
             }
 
-            System.out.println(" * " + attacker.getName() + " використовує зброю " + attacker.getTypeOfWeapon());
+//            attacker.usePower();
+//            attacker.usePower(defender, fightingDroids);
+//            switch(attacker.getTypeOfWeapon()) {
+//                case 1: {
+//                    accuracyChance +=40;
+//
+//                    break;
+//                }
+//                case 2: {
+//                    attacker.gettingHealed(150);
+//                    break;
+//                }
+//                case 3: {
+//                    attacker.setStatus(1);
+//                    break;
+//                }
+//                case 4: {
+//                    if(fightingDroids.size()==2){
+//                        defender.setIsAbleToMove(false);
+//                    }else{
+//                        defender.decreasingHealth(200);
+//                    }
+//                    break;
+//                }
+//                case 5: {
+//                    attack +=20;
+//                    break;
+//                }
+            System.out.println(" * " + attacker.getName() + " використовує зброю " );
             attacker.setRage(0);
         }
 
-        return attack;
+
     }
+
+       // return attack;
+
 
     private boolean isPossibleToHit(Droid attacker, Droid defender, int accuracyChance, int evasionChance) {
         return accuracyChance >= evasionChance;
@@ -165,11 +206,15 @@ public class Battle {
 
     private void makeHit(Droid attacker, Droid defender, int attack) {
         //якщо захисник має перший статус, тобто щит, то удар який він отримує зменшується на 20 %
-        if(defender.getStatus() == 1) {
-            attack = (int)(attack * 0.2);
-            defender.setStatus(0);
-        }
+//        if(defender.getStatus() == 1) {
+//            attack = (int)(attack * 0.2);
+//            defender.setStatus(0);
+//        }
+        if(defender instanceof ArmoredDroid && defender.getRage()>=100) {
 
+            defender.usePower(attacker);
+            defender.setRage(0);
+        }
         //знімаємо здоров'я
         defender.decreasingHealth(attack);
 

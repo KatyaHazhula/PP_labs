@@ -5,7 +5,7 @@ import com.company.Player.Player;
 
 import java.util.ArrayList;
 
-public class Droid {
+public abstract class Droid {
 
     private String name;
     private int health;
@@ -15,9 +15,12 @@ public class Droid {
     private int typeOfWeapon;
     private int status;
     private boolean isAbleToMove;
+    private int accuracyChance;
+    private int attack;
+
+
 
     public Droid() { //тут
-        Player.increaseCountOfDroids();
         isAbleToMove = true;
     }
 
@@ -27,6 +30,12 @@ public class Droid {
         this.damage = droid.damage;
         this.typeOfWeapon = droid.typeOfWeapon;
         this.isAbleToMove = droid.isAbleToMove;
+    }
+    public Droid(String name, int health, int damage) {
+        this.name = name;
+        this.health = health;
+        this.damage = damage;
+        isAbleToMove=true;
     }
 
     public void gettingHealed(int amountOfHeal) {
@@ -56,6 +65,19 @@ public class Droid {
             this.rage = 100;
         }
     }
+
+    public void usePower(){
+        System.out.println("gfudfgsev");
+    }
+
+    public void usePower(Droid droid, ArrayList<Droid> fightingDroids){
+        System.out.println("gfudfgsev");
+    }
+
+    public void usePower(Droid droid){
+        System.out.println("gfudfgsev");
+    }
+
 
     public String getName() {
         return name;
@@ -113,6 +135,20 @@ public class Droid {
         isAbleToMove = ableToMove;
     }
 
+    public int getAttack() {
+        return attack;
+    }
+    public void setAttack(int attack) {
+        this.attack = attack;
+    }
+
+    public int getAccuracyChance() {
+        return accuracyChance;
+    }
+    public void setAccuracyChance(int accuracyChance) {
+        this.accuracyChance = accuracyChance;
+    }
+
     public void showDroidsInfo(ArrayList<Droid> fightingDroids) {
         System.out.println(" *-*-*-*-*-*-*-*--*--*--*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*");
         System.out.println("                                                               Раунд " + Battle.roundCount + ".");
@@ -136,8 +172,7 @@ public class Droid {
     public String toString() { //тут
         return  "Ім'я= " + name +
                 ", здоров'я= " + health +
-                ", наносить шкоду= " + damage +
-                ", зброя №" + typeOfWeapon;
+                ", наносить шкоду= " + damage;
     }
 
 

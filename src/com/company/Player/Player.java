@@ -1,6 +1,6 @@
 package com.company.Player;
 
-import com.company.Droids.Droid;
+import com.company.Droids.*;
 
 import java.io.*;
 
@@ -9,10 +9,14 @@ import java.util.Scanner;
 
 public class Player {
 
-    private String name;
+    private String userName;
     private static int countOfDroids;
+    private String name;
+    private int health;
+    private int damage;
+    private boolean isAbleToMove;
 
-    public final ArrayList<Droid> droidStation = new ArrayList<>();
+    public static ArrayList<Droid> droidStation = new ArrayList<>();
 
 //    public Player(String name) {
 //        this.name = name;
@@ -26,42 +30,51 @@ public class Player {
             String line;
             int value;
 
-            name = br.readLine();
-
-            while((line = br.readLine()) != null ) {
-                Droid droid = new Droid();
-
-                droid.setName(line);
-
+            userName = br.readLine();
+//line = br.readLine()) != null
+            while((name = br.readLine()) != null ) {
                 value = Integer.parseInt(br.readLine());
-                droid.setHealth(value);
+                health = Integer.parseInt(br.readLine());
+                damage = Integer.parseInt(br.readLine());
 
-                value = Integer.parseInt(br.readLine());
-                droid.setDamage(value);
 
-                value = Integer.parseInt(br.readLine());
-                droid.setTypeOfWeapon(value);
+                switch (value){
+                    case 1:droidStation.add(new DroidKnight(name, health, damage));break;
+                    case 2:droidStation.add(new DroidFairy(name, health, damage));break;
+                    case 3:droidStation.add(new ArmoredDroid(name, health, damage));break;
+                    case 4:droidStation.add(new DroidVedma(name, health, damage));break;
+                    case 5:droidStation.add(new DangerousDroid(name, health, damage));break;
+                }
 
-                droidStation.add(droid);
+//                Droid droid = new Droid();
+//
+//                droid.setName(line);
+//
+//                value = Integer.parseInt(br.readLine());
+//                droid.setHealth(value);
+//
+//                value = Integer.parseInt(br.readLine());
+//                droid.setDamage(value);
+//
+//                value = Integer.parseInt(br.readLine());
+//                droid.setTypeOfWeapon(value);
+//
+//                droidStation.add(droid);
             }
         } catch (FileNotFoundException e) {
             Scanner in = new Scanner(System.in);
 
             System.out.print(" Введіть своє ім'я -> ");
-            name = in.nextLine();
+            userName = in.nextLine();
         } catch (IOException e) {
             System.out.println("Wrong data input!");
         }
 
-        System.out.println(" Привіт " + name + "! Щасти тобі!");
+        System.out.println(" Привіт " + userName + "! Щасти тобі!");
         System.out.println();
     }
 
     public static int getCountOfDroids() {
-        return countOfDroids;
-    }
-
-    public static void increaseCountOfDroids() {
-        countOfDroids++;
+        return droidStation.size();
     }
 }
