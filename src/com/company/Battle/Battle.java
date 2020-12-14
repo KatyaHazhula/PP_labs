@@ -17,10 +17,7 @@ public class Battle {
     private int indexOfDefender;
     public static int enlimatedTeam;
 
-
-
     PreparingForGame preparingForGame =new PreparingForGame();
-    //Droid showInfo = new Droid();
 
     public Battle(Droid... droid) { //
         roundCount = 1;
@@ -31,6 +28,7 @@ public class Battle {
             String name = droidIterator.getName();
             int health = droidIterator.getHealth();
             int damage = droidIterator.getDamage();
+
             if (droidIterator instanceof DroidKnight) {
                 fighter = new DroidKnight(name, health, damage);
             } else if (droidIterator instanceof DroidFairy) {
@@ -43,17 +41,15 @@ public class Battle {
                 fighter = new DangerousDroid(name, health, damage);
             }
             fightingDroids.add(fighter);
-
         }
-
 
     }
 
 
     public void start1vs1Battle() {
         while (preparingForGame.PreparingForGame(fightingDroids)) {
-           // showInfo.showDroidsInfo(fightingDroids);
             fightingDroids.get(0).showDroidsInfo(fightingDroids);
+
             if(fightingDroids.get(0).getIsAbleToMove()==true){
                 makeTurn(fightingDroids.get(0), fightingDroids.get(1));
             }
@@ -122,14 +118,12 @@ public class Battle {
     }
 
     private void makeTurn(Droid attacker, Droid defender) {//наносимо удар
-        //attack = random.nextInt(attacker.getDamage() + 1);
-
         attacker.setAttack(random.nextInt(attacker.getDamage() + 1));
-        //accuracyChance = random.nextInt(100);
+
         attacker.setAccuracyChance(random.nextInt(100));
         int evasionChance = random.nextInt(40);
-        //дивимось чи достатньо злості щоб, використати додаткову силу, якщо так тоді збільшуємо attack, якщо не достатньо повертаємо не змінене attack
-        //attack = checkForWeapon(attacker, defender, attack);
+        //дивимось чи достатньо злості щоб, використати додаткову силу
+
         checkForWeapon(attacker, defender);
 
         //якщо рандомно вибрана точність >90 тоді наносимо шкоду +30
@@ -144,7 +138,7 @@ public class Battle {
             if(defender.getHealth() <= 0) {
                 defender.setIsAbleToMove(false);
             }
-        } else {//// якщо нема можливість вдарити
+        } else {// якщо нема можливість вдарити, дроїд лох
             System.out.println(" * " + attacker.getName() + " промазав.");
         }
     }
@@ -162,56 +156,19 @@ public class Battle {
                 attacker.usePower();
             }
 
-//            attacker.usePower();
-//            attacker.usePower(defender, fightingDroids);
-//            switch(attacker.getTypeOfWeapon()) {
-//                case 1: {
-//                    accuracyChance +=40;
-//
-//                    break;
-//                }
-//                case 2: {
-//                    attacker.gettingHealed(150);
-//                    break;
-//                }
-//                case 3: {
-//                    attacker.setStatus(1);
-//                    break;
-//                }
-//                case 4: {
-//                    if(fightingDroids.size()==2){
-//                        defender.setIsAbleToMove(false);
-//                    }else{
-//                        defender.decreasingHealth(200);
-//                    }
-//                    break;
-//                }
-//                case 5: {
-//                    attack +=20;
-//                    break;
-//                }
             System.out.println(" * " + attacker.getName() + " використовує зброю " );
             attacker.setRage(0);
         }
 
-
     }
-
-       // return attack;
-
 
     private boolean isPossibleToHit(Droid attacker, Droid defender, int accuracyChance, int evasionChance) {
         return accuracyChance >= evasionChance;
     }
 
     private void makeHit(Droid attacker, Droid defender, int attack) {
-        //якщо захисник має перший статус, тобто щит, то удар який він отримує зменшується на 20 %
-//        if(defender.getStatus() == 1) {
-//            attack = (int)(attack * 0.2);
-//            defender.setStatus(0);
-//        }
-        if(defender instanceof ArmoredDroid && defender.getRage()>=100) {
 
+        if(defender instanceof ArmoredDroid && defender.getRage()>=100) {
             defender.usePower(attacker);
             defender.setRage(0);
         }

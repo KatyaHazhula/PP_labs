@@ -5,14 +5,9 @@ public class DroidFairy extends Droid{
         super(name, health, damage);
     }
 
-    public DroidFairy() {
-    }
-
     @Override
     public void usePower() {
-       System.out.println("Fairy");
-       System.out.println(super.getHealth());
+       System.out.println("Дроїд дуже злий,він взяв в лапки зілля");
        super.setHealth(super.getHealth()+200);
-        System.out.println(super.getHealth());
     }
 }

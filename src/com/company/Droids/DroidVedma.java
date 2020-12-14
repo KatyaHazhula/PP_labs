@@ -8,11 +8,10 @@ public class DroidVedma extends Droid{
         super(name, health, damage);
     }
 
-    public DroidVedma() {
-    }
+
     @Override
     public void usePower(Droid defender, ArrayList<Droid> fightingDroids) {
-        System.out.println("vedma");
+        System.out.println("Дроїд дуже злий,він хоче нанести прокляття");
         if(fightingDroids.size()==2){
             defender.setIsAbleToMove(false);
         }else{

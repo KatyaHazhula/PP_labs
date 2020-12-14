@@ -208,22 +208,11 @@ public class Menu {
             case 4:player.droidStation.add(new DroidVedma(name, health, damage));break;
             case 5:player.droidStation.add(new DangerousDroid(name, health, damage));break;
         }
-       // Droid droid = new Droid();
-//        inputAttributesForDroid(droid);
-//        player.droidStation.add(droid);
+
     }
 
     private void typeOfDroid() {
         Scanner in = new Scanner(System.in);
-//
-//        System.out.print(" -------------- Введіть ім'я   -> ");
-//        droid.setName(in.nextLine());
-//
-//        System.out.print(" -- Введіть кількість здоров'я -> ");
-//        droid.setHealth(in.nextInt());
-//
-//        System.out.print(" ----- Введіть кількість нанесеної шкоди -> ");
-//        droid.setDamage(in.nextInt());
 
         System.out.println(" *-*-*-*-*-*-*-*--*--*--*-*-*-*");
         System.out.println(" * Виберіть дроїда:               *");
@@ -236,7 +225,6 @@ public class Menu {
         System.out.print(" ------------- Введіть номер --> ");
         int value=Integer.parseInt(in.nextLine());
 
-      //  droid.setTypeOfWeapon(in.nextInt());
         System.out.println();
         System.out.println();
         createDroidSection(value);

@@ -5,15 +5,10 @@ public class DroidKnight extends Droid{
         super(name, health, damage);
     }
 
-    public DroidKnight() {
-    }
-
     @Override
     public void usePower() {
-        System.out.println("Knight");
-        System.out.println(super.getAccuracyChance());
+        System.out.println("Дроїд дуже злий,він взяв в лапки меч");
         super.setAccuracyChance(getAccuracyChance()+40);
-        System.out.println(super.getAccuracyChance());
 
     }
 }

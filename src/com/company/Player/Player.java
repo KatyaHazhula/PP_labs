@@ -10,17 +10,13 @@ import java.util.Scanner;
 public class Player {
 
     private String userName;
-    private static int countOfDroids;
+ //   private static int countOfDroids;
     private String name;
     private int health;
     private int damage;
-    private boolean isAbleToMove;
+  //  private boolean isAbleToMove;
 
     public static ArrayList<Droid> droidStation = new ArrayList<>();
-
-//    public Player(String name) {
-//        this.name = name;
-//    }
 
     public Player() {
         try {
@@ -31,7 +27,7 @@ public class Player {
             int value;
 
             userName = br.readLine();
-//line = br.readLine()) != null
+
             while((name = br.readLine()) != null ) {
                 value = Integer.parseInt(br.readLine());
                 health = Integer.parseInt(br.readLine());
@@ -46,20 +42,6 @@ public class Player {
                     case 5:droidStation.add(new DangerousDroid(name, health, damage));break;
                 }
 
-//                Droid droid = new Droid();
-//
-//                droid.setName(line);
-//
-//                value = Integer.parseInt(br.readLine());
-//                droid.setHealth(value);
-//
-//                value = Integer.parseInt(br.readLine());
-//                droid.setDamage(value);
-//
-//                value = Integer.parseInt(br.readLine());
-//                droid.setTypeOfWeapon(value);
-//
-//                droidStation.add(droid);
             }
         } catch (FileNotFoundException e) {
             Scanner in = new Scanner(System.in);

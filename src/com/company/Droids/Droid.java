@@ -18,19 +18,17 @@ public abstract class Droid {
     private int accuracyChance;
     private int attack;
 
+//    public Droid() { //тут
+//        isAbleToMove = true;
+//    }
 
-
-    public Droid() { //тут
-        isAbleToMove = true;
-    }
-
-    public Droid(Droid droid) {
-        this.name = droid.name;
-        this.health = droid.health;
-        this.damage = droid.damage;
-        this.typeOfWeapon = droid.typeOfWeapon;
-        this.isAbleToMove = droid.isAbleToMove;
-    }
+//    public Droid(Droid droid) {
+//        this.name = droid.name;
+//        this.health = droid.health;
+//        this.damage = droid.damage;
+//        this.typeOfWeapon = droid.typeOfWeapon;
+//        this.isAbleToMove = droid.isAbleToMove;
+//    }
     public Droid(String name, int health, int damage) {
         this.name = name;
         this.health = health;
@@ -174,6 +172,5 @@ public abstract class Droid {
                 ", здоров'я= " + health +
                 ", наносить шкоду= " + damage;
     }
-
 
 }
