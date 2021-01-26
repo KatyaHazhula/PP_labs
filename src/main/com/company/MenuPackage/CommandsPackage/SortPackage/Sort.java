@@ -1,5 +1,6 @@
 package main.com.company.MenuPackage.CommandsPackage.SortPackage;
 
+import main.com.company.MainPackage.Main;
 import main.com.company.MenuPackage.CommandsPackage.DepositsPackage.Deposit;
 
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ public class Sort {
     Scanner in=new Scanner(System.in);
     private ArrayList<Deposit> deposits;
     public void openSort(ArrayList<Deposit> deposits) {
+        Main.LOGGER.info("Sort our lists of deposits");
         if(deposits.size()==0){
             System.out.println("Your list of deposits is empty(((");
             return;
@@ -31,6 +33,7 @@ public class Sort {
         catch (java.util.InputMismatchException e) {
             choice = 0;
             in.next();
+            Main.email.send(e.toString());
         }
 
         this.deposits = deposits;

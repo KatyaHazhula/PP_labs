@@ -1,6 +1,7 @@
 package main.com.company.MenuPackage.Menu;
 
 
+import main.com.company.MainPackage.Main;
 import main.com.company.MenuPackage.CommandsPackage.AddElementPackage.AddElementCommand;
 import main.com.company.MenuPackage.CommandsPackage.CalculatePercentage.CalculatePercentageCommand;
 import main.com.company.MenuPackage.CommandsPackage.CombinePackage.CombineCommand;
@@ -162,6 +163,7 @@ public class Menu {
             }
         } catch (IOException e) {
             e.printStackTrace();
+            Main.email.send(e.toString());
         }
     }
 

@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="javax.mail-1.6.2">
+    <CLASSES>
+      <root url="jar://D:/Polytechnic/3 семестр/ПП/javax.mail-1.6.2.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.ideaLibSources/javax.mail-1.6.2-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

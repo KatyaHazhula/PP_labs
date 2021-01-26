@@ -1,5 +1,6 @@
 package main.com.company.MenuPackage.CommandsPackage.OutputPackage;
 
+import main.com.company.MainPackage.Main;
 import main.com.company.MenuPackage.CommandsPackage.DepositsPackage.Deposit;
 
 import java.util.ArrayList;
@@ -7,6 +8,7 @@ import java.util.ArrayList;
 public class Output {
     private ArrayList<Deposit> deposits;
     public void openOutput(ArrayList<Deposit> deposits){
+        Main.LOGGER.info("Display our lists of deposits");
         if(deposits.size() == 0) {
             System.out.println(" Your list is empty.");
             return;

@@ -1,5 +1,6 @@
 package main.com.company.MenuPackage.CommandsPackage.AddElementPackage;
 
+import main.com.company.MainPackage.Main;
 import main.com.company.MenuPackage.CommandsPackage.Command;
 import main.com.company.MenuPackage.CommandsPackage.DepositsPackage.AccumulateDeposit;
 import main.com.company.MenuPackage.CommandsPackage.DepositsPackage.Deposit;
@@ -17,6 +18,7 @@ public class AddElement {
     private Client client = new Client();
 
     public void openAddElement(ArrayList<Deposit> deposits,ArrayList<Deposit> MyDeposits) {
+        Main.LOGGER.info("Adding element to our list of deposits");
         double sum;
         int term;
 

@@ -1,5 +1,6 @@
 package main.com.company.MenuPackage.CommandsPackage.DepositOperationsPackage;
 
+import main.com.company.MainPackage.Main;
 import main.com.company.MenuPackage.CommandsPackage.Command;
 import main.com.company.MenuPackage.CommandsPackage.DepositsPackage.Deposit;
 import main.com.company.MenuPackage.Menu.Client;
@@ -17,6 +18,8 @@ public class DepositOperations {
         private Client client = new Client();
 
         public void openOperations(ArrayList<Deposit> deposits, DepositOperations depositOperations) {
+
+           Main.LOGGER.info("Deposit Operations");
             depositEarlyWithdrawal = new DepositEarlyWithdrawal(deposits, depositOperations);
             depositReplenishment = new DepositReplenishment(deposits, depositOperations);
 
@@ -35,6 +38,7 @@ public class DepositOperations {
             catch (java.util.InputMismatchException e) {
                 choice = 0;
                 in.next();
+                Main.email.send(e.toString());
             }
             MakeChoice(choice);
         }

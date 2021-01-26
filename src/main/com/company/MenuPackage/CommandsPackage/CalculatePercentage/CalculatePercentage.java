@@ -1,5 +1,6 @@
 package main.com.company.MenuPackage.CommandsPackage.CalculatePercentage;
 
+import main.com.company.MainPackage.Main;
 import main.com.company.MenuPackage.CommandsPackage.Command;
 import main.com.company.MenuPackage.CommandsPackage.DepositsPackage.AccumulateDeposit;
 import main.com.company.MenuPackage.CommandsPackage.DepositsPackage.Deposit;
@@ -19,6 +20,7 @@ public class CalculatePercentage {
     private Client client = new Client();
 
     public void openCalculatePercentage(ArrayList<Deposit> deposits,boolean remove) {
+       Main.LOGGER.info("Calculating the sum");
 
         if(deposits.size()==0){
             System.out.println("Your list of deposits is empty(((");
@@ -46,9 +48,9 @@ public class CalculatePercentage {
         if(choose==0){
             System.out.println("Enter count of months: ");
             int monthsNum=in.nextInt();
-            System.out.printf("This is the sum that is paid after the term you have chosen: %.2f ",calculateSum(monthsNum,deposits.get(depositNum-1).getPercentage()-0.5));
+            System.out.printf("This is the sum that is paid after the term you have chosen: %.2f ",calculateSum(monthsNum,deposits.get(depositNum-1).getPercentage()-0.5, deposits,depositNum));
         }else if(choose==1){
-            System.out.printf("This is the sum that is paid after the deadline: %.2f",calculateSum(deposits.get(depositNum-1).getTerm(),deposits.get(depositNum-1).getPercentage()));
+            System.out.printf("This is the sum that is paid after the deadline: %.2f",calculateSum(deposits.get(depositNum-1).getTerm(),deposits.get(depositNum-1).getPercentage(),deposits,depositNum));
         }
 
         if(remove){ //якщо це зняття то просто видаяєм депозит зі списку
@@ -58,7 +60,7 @@ public class CalculatePercentage {
         }
     }
 
-    private double calculateSum(int term,double percentage){ //рахує суму грошей за певний час
+    public double calculateSum(int term,double percentage, ArrayList<Deposit> deposits,int depositNum){ //рахує суму грошей за певний час
         return deposits.get(depositNum-1).getSum()+((deposits.get(depositNum-1).getSum()*(percentage/100)/365)*(30*term));
     }
 }
